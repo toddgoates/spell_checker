@@ -1,0 +1,19 @@
+{
+  "name": "spell_checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "spellcheck.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Todd Goates",
+    "email": "toddgoates@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
+}

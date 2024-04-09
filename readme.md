@@ -9,11 +9,15 @@ This is a simple Node.js program that runs on the command line and checks if a f
 ## Installation
 
 1. Clone this repo onto your computer
-   ```
+   ```shell
    git clone https://github.com/toddgoates/spellchecker
    ```
-1. Install NPM packages
+1. Go to the repo's directory
+   ```shell
+   cd /path/to/spellchecker
    ```
+1. Install NPM packages
+   ```shell
    npm install
    ```
 
@@ -44,6 +48,12 @@ flied, flier, fliers, flies, fliest
 ---------------------------------------------------
 ```
 
+I also added a function that adds a word to the spell checker's dictionary file (like how you can do this in a word processor). My explanation for why I did this is found in the section below. Here's how to add a word:
+
+```shell
+node spellcheck --dictionary dictionary.txt --add <new_word>
+```
+
 ## My Thoughts
 
 Initially I wasn't sure how I was going to complete this challenge, but it didn't seem to bad once I got started.
@@ -54,8 +64,14 @@ Once that was in place, I then had my script read the dictionary file and input 
 
 I create an object from the dictionary file and analyze the input file line by line, splitting at spaces to get individual words. If the word (converted to lower case) is not found in the dictionary object, then it's considered to be misspelled.
 
-From there, I check to get the line number and column number to output later on. Initially this seemed simple enough, but I later noticed the column number would sometimes be incorrect for short words like "a" or "in". It was because it was getting the column number at the first occurrence of that string. I later had to modify the code to check for word boundaries.
+From there, I check to get the line number and column number to output later on. Initially this seemed simple enough, but I later noticed the column number would sometimes be incorrect for short words like "a" or "in". It was because it was getting the column number at the first occurrence of that string and not the whole word. I later modified the code to check for word boundaries.
 
-I wrote a function for getting the surrounding text of a misspelled word. It simply checks for 10 characters before and after the word. If the word is at the start or end of the line, this is taken into account.
+I wrote a function for getting the surrounding text of a misspelled word. It simply checks for 10 characters before and after the word. If the word is towards the start or end of the line, this is taken into account.
 
-Finding similar words was a bit of a challenge. There's no way I could write an algorithm for this in a short amount of time, so I opted to bring in an NPM package. One of the more popular packages was [fuse.js](https://www.fusejs.io/). I've never used this package before, but it worked well, though it took a while to fine-tune the results. I probably need to fine-tune them some more. I created a function that checks for similar words and returns the first 5 results, though often there are dozens or hundreds of results.
+Finding similar words was a bit of a challenge. There's no way I could write an algorithm for this in a short amount of time, so I opted to bring in an NPM package. One of the more popular packages was [fuse.js](https://www.fusejs.io/). I've never used this package before, but it worked well, though it took a little while to fine-tune the results. I probably need to fine-tune them some more. I created a function that checks for similar words and returns the first 5 results, though often there are dozens or hundreds of results.
+
+One of the requirements for this project was to handle proper nouns correctly. My script will output proper nouns as misspellings if they are not in the dictionary file. I wasn't sure if this was the desired result for the program, so I opted to create an "add to dictionary" option where you can add custom words or pronouns to the specified dictionary file via an `--add` flag.
+
+## Conclusion
+
+This was a fun coding exercise and didn't take as long as I had thought it would. I wrote all of this code and documentation in a little under 3 hours.
